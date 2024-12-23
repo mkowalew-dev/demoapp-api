@@ -1,9 +1,10 @@
-const express = require('express');
-const cors = require('cors');
-const salesRoutes = require('./routes/sales');
-const expensesRoutes = require('./routes/expenses');
-const salariesRoutes = require('./routes/salaries');
-const employeesRoutes = require('./routes/employees');
+import './instrumentation.mjs'
+import express from 'express'
+import cors from 'cors'
+import salesRoutes from './routes/sales.js'
+import expensesRoutes from './routes/expenses.js'
+import salariesRoutes from './routes/salaries.js'
+import employeesRoutes from './routes/employees.js'
 
 const app = express();
 const PORT = process.env.PORT || 4000;
