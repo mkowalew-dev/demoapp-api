@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
-router.get('/:year', (req, res, next) => {
+router.get('/summary/:year', (req, res, next) => {
     const { year } = req.params;
-    const query = 'SELECT month, amount FROM Expenses WHERE year = ? ORDER BY month';
+    const query = 'SELECT month, amount FROM ExpensesLegacy WHERE year = ? ORDER BY month';
 
     db.query(query, [year], (err, results) => {
         if (err) {
