@@ -1,13 +1,11 @@
-// import './instrumentation.mjs'
 import express from 'express'
 import rateLimit from'express-rate-limit';
 import cors from 'cors'
-import salesRoutes from './routes/saleslegacy.js'
-import expensesRoutes from './routes/expenses.js'
-import salariesRoutes from './routes/salaries.js'
-import employeesRoutes from './routes/employees.js'
-import productsRoutes from './routes/products.js'
-import ordersRoutes from './routes/orders.js'
+import salesRoutes from '../routes/salesLegacy.js'
+import expensesRoutes from '../routes/expenses.js'
+import employeesRoutes from '../routes/employees.js'
+import productsRoutes from '../routes/products.js'
+import ordersRoutes from '../routes/orders.js'
 
 
 const app = express();
@@ -26,8 +24,6 @@ app.use(cors(), limiter)
 // Use routes
 app.use('/api/saleslegacy', salesRoutes);
 app.use('/api/expenseslegacy', expensesRoutes);
-app.use('/api/salaries', salariesRoutes);
-app.use('/api/employees', employeesRoutes);
 app.use('/api/products', productsRoutes);
 app.use('/api/orders', ordersRoutes);
 

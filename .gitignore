@@ -31,3 +31,4 @@ yarn-error.log*
 scratch
 package-lock.json
 /.idea/
+/db/
