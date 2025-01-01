@@ -2,12 +2,22 @@ import express from 'express';
 const router = express.Router();
 import db from '../app-db.js';
 
-// Helper function to get orders by status
-const getOrdersByStatus = (status, res) => {
-    const query = `SELECT MONTH(order_date) AS month, COUNT(*) AS order_count FROM Orders WHERE status = ? GROUP BY MONTH(order_date) ORDER BY MONTH(order_date)`;
+// Function to get order count by status per month
+const getOrderCountByStatusPerMonth = (status, res) => {
+    const query = `
+        SELECT 
+            YEAR(order_date) AS year, 
+            MONTH(order_date) AS month, 
+            COUNT(*) AS total 
+        FROM Orders 
+        WHERE status = ? 
+        GROUP BY YEAR(order_date), MONTH(order_date)
+        ORDER BY year, month;
+    `;
     db.query(query, [status], (err, results) => {
         if (err) {
-            return res.status(500).json({ error: err.message });
+            res.status(500).json({ error: 'Database query error' });
+            return;
         }
         res.json(results);
     });
@@ -62,23 +72,23 @@ router.delete('/:id', (req, res) => {
     });
 });
 // Endpoint for orders with status 'Shipped'
-router.get('/shipped', (req, res) => {
-    getOrdersByStatus('Shipped', res);
+router.get('/shipped/monthly', (req, res) => {
+    getOrderCountByStatusPerMonth('Shipped', res);
 });
 
 // Endpoint for orders with status 'Completed'
-router.get('/completed', (req, res) => {
-    getOrdersByStatus('Completed', res);
+router.get('/completed/monthly', (req, res) => {
+    getOrderCountByStatusPerMonth('Completed', res);
 });
 
 // Endpoint for orders with status 'Canceled'
-router.get('/canceled', (req, res) => {
-    getOrdersByStatus('Canceled', res);
+router.get('/canceled/monthly', (req, res) => {
+    getOrderCountByStatusPerMonth('Canceled', res);
 });
 
 // Endpoint for orders with status 'Pending'
-router.get('/pending', (req, res) => {
-    getOrdersByStatus('Pending', res);
+router.get('/pending/monthly', (req, res) => {
+    getOrderCountByStatusPerMonth('Pending', res);
 });
 
 export default router;

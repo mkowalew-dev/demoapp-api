@@ -2,20 +2,6 @@ import express from 'express';
 const router = express.Router();
 import db from '../app-db.js';
 
-router.get('/summary/:year', (req, res, next) => {
-    const { year } = req.params;
-    const query = 'SELECT month, amount FROM ExpensesLegacy WHERE year = ? ORDER BY month';
-
-    db.query(query, [year], (err, results) => {
-        if (err) {
-            return next(err);
-        }
-        if (results.length === 0) {
-            return res.status(404).json({ error: 'No expenses data found for this year' });
-        }
-        res.json(results);
-    });
-});
 // Get all expenses
 router.get('/', (req, res) => {
     const query = `
@@ -73,7 +59,7 @@ router.delete('/:id', (req, res) => {
 // Summarize expenses by month
 router.get('/summary/month', (req, res) => {
     const query = `
-    SELECT DATE_FORMAT(expense_date, '%Y-%m') AS month, SUM(amount) AS total_amount
+    SELECT DATE_FORMAT(expense_date, '%m-%Y') AS month, SUM(amount) AS total_amount
     FROM Expenses
     GROUP BY month
     ORDER BY month

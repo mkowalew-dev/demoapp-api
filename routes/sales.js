@@ -57,7 +57,7 @@ router.delete('/:id', (req, res) => {
 // Summarize sales by month
 router.get('/summary/month', (req, res) => {
     const query = `
-    SELECT DATE_FORMAT(sale_date, '%Y-%m') AS month, SUM(total) AS total_sales
+    SELECT DATE_FORMAT(sale_date, '%m-%Y') AS month, SUM(total) AS total_sales
     FROM Sales
     GROUP BY month
     ORDER BY month

@@ -1,10 +1,8 @@
 import express from 'express'
 import rateLimit from'express-rate-limit';
 import cors from 'cors'
-import salesLegacyRoutes from './routes/salesLegacy.js'
 import salesRoutes from './routes/sales.js'
 import expensesRoutes from './routes/expenses.js'
-import expensesLegacyRoutes from './routes/expensesLegacy.js'
 import employeesRoutes from './routes/employees.js'
 import productsRoutes from './routes/products.js'
 import ordersRoutes from './routes/orders.js'
@@ -45,10 +43,8 @@ app.use('/api/inventory', inventoryRoutes);
 app.use('/api/shipping', shippingRoutes);
 app.use('/api/expenses', expensesRoutes);
 app.use('/api/expenseCategories', expenseCategoriesRoutes);
-app.use('/api/saleslegacy', salesLegacyRoutes);
 app.use('/api/sales', salesRoutes);
 app.use('/api/expenses', expensesRoutes);
-app.use('/api/expenseslegacy', expensesLegacyRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
