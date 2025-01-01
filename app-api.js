@@ -29,7 +29,7 @@ const limiter = rateLimit({
 })
 app.use(cors(), limiter);
 app.use(bodyParser.json());
-//app.use(authenticateApiKey)
+app.use(authenticateApiKey)
 
 
 app.use('/api/users', usersRoutes);
