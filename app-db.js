@@ -1,8 +1,8 @@
-import mysql from 'mysql2';
+import mariadb from 'mariadb';
 
-const db = mysql.createConnection(
+const db = mariadb.createConnection(
     {
-        host: 'localhost',
+        host: '192.168.1.217',
         user: 'dbuser',
         password: 'CAdemo123',
         database: 'DemoWebAppProd'

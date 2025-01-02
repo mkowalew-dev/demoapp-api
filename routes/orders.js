@@ -2,6 +2,7 @@ import express from 'express';
 const router = express.Router();
 import db from '../app-db.js';
 
+let conn;
 // Function to get order count by status per month
 const getOrderCountByStatusPerMonth = (status, res) => {
     const query = `
@@ -23,10 +24,10 @@ const getOrderCountByStatusPerMonth = (status, res) => {
     });
 };
 // Get all orders
-router.get('/', (req, res) => {
+router.get('/',  (req, res) => {
     const query = 'SELECT * FROM Orders';
     db.query(query, (err, results) => {
-        if (err) return res.status(500).json({ error: err.message });
+        if (err) return res.status(500).json({error: err.message});
         res.json(results);
     });
 });
