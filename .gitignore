@@ -32,3 +32,4 @@ scratch
 package-lock.json
 /.idea/
 /db/
+/archive/
