@@ -10,13 +10,13 @@ const salesApp = express();
 const PORT = 4001; // Unique port for Sales service
 
 //splunk observability
-start({
-    serviceName: 'sales-service',
-    // general options like `serviceName` and `endpoint`
-    metrics: true, // turn metrics on with default options
-    profiling: true, // turn profiling on with default options
-    tracing: true
-});
+// start({
+//     serviceName: 'sales-service',
+//     // general options like `serviceName` and `endpoint`
+//     metrics: true, // turn metrics on with default options
+//     profiling: true, // turn profiling on with default options
+//     tracing: true
+// });
 //express rate-limiter
 const limiter = rateLimit({
     windowMs: 5 * 60 * 1000, // 5 minutes

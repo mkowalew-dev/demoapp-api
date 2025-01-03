@@ -9,13 +9,13 @@ const authApp = express();
 const PORT = 4000; // Centralized authentication service port
 
 //splunk observability
-start({
-    serviceName: 'auth-service',
-    // general options like `serviceName` and `endpoint`
-    metrics: true, // turn metrics on with default options
-    profiling: true, // turn profiling on with default options
-    tracing: true
-});
+// start({
+//     serviceName: 'auth-service',
+//     // general options like `serviceName` and `endpoint`
+//     metrics: true, // turn metrics on with default options
+//     profiling: true, // turn profiling on with default options
+//     tracing: true
+// });
 
 //express rate-limiter
 const limiter = rateLimit({

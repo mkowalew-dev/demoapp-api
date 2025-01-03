@@ -9,13 +9,13 @@ const logisticsApp = express();
 const PORT = 4002; // Unique port for Logistics service
 
 //splunk observability
-start({
-    serviceName: 'logistics-service',
-    // general options like `serviceName` and `endpoint`
-    metrics: true, // turn metrics on with default options
-    profiling: true, // turn profiling on with default options
-    tracing: true
-});
+// start({
+//     serviceName: 'logistics-service',
+//     // general options like `serviceName` and `endpoint`
+//     metrics: true, // turn metrics on with default options
+//     profiling: true, // turn profiling on with default options
+//     tracing: true
+// });
 
 //express rate-limiter
 const limiter = rateLimit({
