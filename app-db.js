@@ -1,12 +1,12 @@
-import mariadb from 'mariadb';
+import pkg from 'pg';
+const { Pool } = pkg;
 
-const db = mariadb.createConnection(
-    {
-        host: '192.168.1.217',
-        user: 'dbuser',
-        password: 'CAdemo123',
-        database: 'DemoWebAppProd'
-    }
-)
+const db = new Pool({
+    user: 'dbuser',
+    host: '192.168.1.24',
+    database: 'demowebapp_prod',
+    password: 'CAdemo123',
+    port: 5432,
+});
 
 export default db;

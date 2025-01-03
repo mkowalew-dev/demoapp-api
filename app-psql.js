@@ -1,25 +1,10 @@
 import express from 'express';
-import pkg from 'pg';
-const { Pool } = pkg;
+import db from './app-db.js'
 
 const app = express();
 const port = 4000;
 
-// Configure PostgreSQL connection
-// const pool = new Pool({
-//     user: 'dbuser',
-//     host: '192.168.1.142',
-//     database: 'demo_webapp_staging',
-//     password: 'CAdemo123',
-//     port: 5432,
-// });
-const pool = new Pool({
-    user: 'dbuser',
-    host: '192.168.1.24',
-    database: 'postgres',
-    password: 'CAdemo123',
-    port: 5432,
-});
+
 // Helper function to get orders by status
 async function getOrdersByStatus(status) {
     const query = `
@@ -36,7 +21,7 @@ async function getOrdersByStatus(status) {
         ORDER BY
             year, month;
     `;
-    const { rows } = await pool.query(query, [status]);
+    const { rows } = await db.query(query, [status]);
     return rows.map(row => ({
         year: parseInt(row.year),
         month: parseInt(row.month),

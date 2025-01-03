@@ -8,11 +8,10 @@ const authenticateApiKey = (req, res, next) => {
         return res.status(401).json({ error: 'Unauthorized: API key required' });
     }
 
-    const query = 'SELECT * FROM ApiKeys WHERE api_key = ?';
+    const query = 'SELECT * FROM apikeys WHERE api_key = ?';
     db.query(query, [apiKey], (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
         if (results.length === 0) return res.status(403).json({ error: 'Forbidden: Invalid API key' });
-
         next();
     });
 };

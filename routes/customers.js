@@ -2,45 +2,60 @@ import express from 'express';
 const router = express.Router();
 import db from '../app-db.js';
 
-// Get all customers
-router.get('/', (req, res) => {
-    const query = 'SELECT * FROM Customers';
-    db.query(query, (err, results) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json(results);
-    });
+// GET all customers
+router.get('/', async (req, res) => {
+    try {
+        const result = await db.query('SELECT * FROM customers');
+        res.json(result.rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
-// Get a customer by ID
-router.get('/:id', (req, res) => {
+// GET customer by ID
+router.get('/:id', async (req, res) => {
     const { id } = req.params;
-    const query = 'SELECT * FROM Customers WHERE customer_id = ?';
-    db.query(query, [id], (err, results) => {
-        if (err) return res.status(500).json({ error: err.message });
-        if (results.length === 0) return res.status(404).json({ error: 'Customer not found' });
-        res.json(results[0]);
-    });
+    try {
+        const result = await db.query('SELECT * FROM customers WHERE id = $1', [id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Customer not found' });
+        }
+        res.json(result.rows[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
-// Update a customer
-router.put('/:id', (req, res) => {
+// UPDATE customer by ID
+router.put('/:id', async (req, res) => {
     const { id } = req.params;
-    const { first_name, last_name, email, phone, address, city, state, zip_code } = req.body;
-    const query = 'UPDATE Customers SET first_name = ?, last_name = ?, email = ?, phone = ?, address = ?, city = ?, state = ?, zip_code = ? WHERE customer_id = ?';
-    db.query(query, [first_name, last_name, email, phone, address, city, state, zip_code, id], (err) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json({ message: 'Customer updated successfully' });
-    });
+    const { name, email } = req.body; // Add other fields as necessary
+    try {
+        const result = await db.query(
+            'UPDATE customers SET name = $1, email = $2 WHERE id = $3 RETURNING *',
+            [name, email, id]
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Customer not found' });
+        }
+        res.json(result.rows[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
-// Delete a customer
-router.delete('/:id', (req, res) => {
+// DELETE customer by ID
+router.delete('/:id', async (req, res) => {
     const { id } = req.params;
-    const query = 'DELETE FROM Customers WHERE customer_id = ?';
-    db.query(query, [id], (err) => {
-        if (err) return res.status(500).json({ error: err.message });
+    try {
+        const result = await db.query('DELETE FROM customers WHERE id = $1 RETURNING *', [id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Customer not found' });
+        }
         res.json({ message: 'Customer deleted successfully' });
-    });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 export default router;
