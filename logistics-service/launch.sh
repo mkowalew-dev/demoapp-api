@@ -5,4 +5,4 @@ export OTEL_RESOURCE_ATTRIBUTES=deployment.environment=staging,service.version=2
 export OTEL_SERVICE_NAME=logistics-service
 export SPLUNK_PROFILER_ENABLED=true
 export SPLUNK_PROFILER_MEMORY_ENABLED=true
-node -r @splunk/otel/instrument logistics-app.js &
+node -r @splunk/otel/instrument l.js &
