@@ -3,10 +3,9 @@ const { Pool } = pkg;
 
 const db = new Pool({
     user: 'dbuser',
-    host: '192.168.1.142',
-    database: 'demowebapp_prod',
+    host: 'db.retaildemo.net',
+    database: 'retaildemo_prod_azure',
     password: 'CAdemo123',
     port: 5432,
 });
-
 export default db;

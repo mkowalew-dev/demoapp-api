@@ -1,3 +1,4 @@
+import '../otel-init.js'
 import express from 'express';
 const router = express.Router();
 import db from '../../app-db.js';
